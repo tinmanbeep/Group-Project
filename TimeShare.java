@@ -1,4 +1,4 @@
-package csc222Quiz_m5StartFiles;
+package timesharerentals;
 
 import java.text.NumberFormat;
 
@@ -8,7 +8,15 @@ public class TimeShare {
 	private int numBedrooms;
 	private double costPerNight;
 	
-	//need constructors
+	public TimeShare() {
+		
+	}
+	
+	public TimeShare(String location, int numBedrooms, double costPerNight) {
+		this.location = location;
+		this.numBedrooms = 	numBedrooms;
+		this.costPerNight = costPerNight;
+	}
 	
 	public String toString() {
 		NumberFormat nf = NumberFormat.getCurrencyInstance();
@@ -16,5 +24,29 @@ public class TimeShare {
 				" and rents for " + nf.format(costPerNight) + " per night";
 	}
 
-	//need getters and setters
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public int getNumBedrooms() {
+		return numBedrooms;
+	}
+
+	public void setNumBedrooms(int numBedrooms) {
+		this.numBedrooms = numBedrooms;
+	}
+
+	public double getCostPerNight() {
+		return costPerNight;
+	}
+
+	public void setCostPerNight(double costPerNight) {
+		this.costPerNight = costPerNight;
+	}
+
+	
 }
