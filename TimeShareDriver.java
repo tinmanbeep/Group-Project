@@ -1,9 +1,9 @@
-package csc222Quiz_m5StartFiles;
+package timesharerentals;
 import java.util.*;
 
-import csc222Quiz_m5ANSWERS.AddOn;
-import csc222Quiz_m5ANSWERS.Customer;
-import csc222Quiz_m5ANSWERS.TimeShare;
+import timesharerentals.AddOn;
+import timesharerentals.Customer;
+import timesharerentals.TimeShare;
 
 import java.text.*;
 
@@ -12,6 +12,12 @@ public class TimeShareDriver {
 	
 	public static void main(String[] args) {
 		
+		ArrayList<TimeShare> ts = new ArrayList<TimeShare>();
+		ArrayList<Customer> cus = new ArrayList<Customer>();
+		ArrayList<AddOn> addOn = new ArrayList<AddOn>();
+		
+		
+		loadNewData(ts,cus, addOn);
 		
 	}
 		// This method loads the pre-set data into the Customer and Auto ArrayLists
@@ -36,5 +42,19 @@ public class TimeShareDriver {
 
 		}
 
-       // other methods go here
+       public static void showCust(ArrayList<Customer> cus) {
+    	   
+       }
+       
+       public static void showAddOns(ArrayList<AddOn> a) {
+    	   
+       }
+       
+       public static ArrayList<AddOn> chooseAddOns(ArrayList<AddOn> a){
+    	  
+       }
+       
+       public static void printRentals(ArrayList<TSReservation> res) {
+    	   
+       }
 }
