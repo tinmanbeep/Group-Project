@@ -20,7 +20,6 @@ public class AddOn {
 	
 	public String toString() {
 		NumberFormat nf = NumberFormat.getCurrencyInstance();
-		String ans;
 		if (duration == true)
 			return type + " for a total cost of " + nf.format(cost);
 		else
@@ -50,7 +49,4 @@ public class AddOn {
 	public void setDuration(boolean duration) {
 		this.duration = duration;
 	}
-	
-	
-	
 }
