@@ -5,7 +5,7 @@ public class Customer {
 	// the Customer class has three fields
 	private int custId;
 	private String name;
-    	private boolean premier;
+    private boolean premier;
 	
 	// the following will be used to automatically generate customer ids
 	//so they will be unique
