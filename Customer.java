@@ -2,23 +2,21 @@ package timesharerentals;
 
 public class Customer {
 	
-	// the Customer class has three fields
+	
 	private int custId;
 	private String name;
-    private boolean premier;
+   	private boolean premier;
 	
-	// the following will be used to automatically generate customer ids
-	//so they will be unique
-	private static int nextNum = 100;
 	
 	
 	public Customer() {
 		
 	}
 	
-	public Customer(String name, boolean premier) {
+	public Customer(String name, boolean premier,int custId) {
 		this.name = name;
 		this.premier = premier;
+		this.custId = custId;
 	}
 	
 	// toString method
@@ -59,18 +57,13 @@ public class Customer {
 	public void setPremier(boolean premier) {
 		this.premier = premier;
 	}
-
-
-	public static int getNextNum() {
-		return nextNum;
-	}
-
-
-	public static void setNextNum(int nextNum) {
-		Customer.nextNum = nextNum;
+	
+	public static int getCustId() {
+		return custId;
 	}
 	
-	
-
+	public static void setCustId(int custId) {
+		this.custId = custId;
+	}
 
 }
