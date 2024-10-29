@@ -25,78 +25,79 @@ public class TSReservation {
 
 	// Full constructor
 	public TSReservation(Customer cust, TimeShare timeShare, int numDays, ArrayList<AddOn> addOn) {
-		this.numDays = numDays;
-		this.cust = cust;
-		this.timeShare = timeShare;
-		for (AddOn add : addOn)
-		{
-			this.addOn.add(add);
-		}
-		setRentalCost(cust, timeShare);
+		setNumDays(numDays);
+		setCust(cust);
+		setTimeShare(timeShare);
+		setAddOn(addOn);
+		setRentalCost();
 	}
 
 	public String toString() {
 		NumberFormat nf = NumberFormat.getCurrencyInstance();
 		String string;
-		string = cust.toString() + " rented ";
+		string = "\n" + cust.toString() + " rented \n";
 		string = string + timeShare.toString() + " for " + numDays + " days.";
 		string = string + "\nThe cost was " + nf.format(rentAmt) + "\n";
 		switch (discount) {
 			case 'B':
-				string = string + "This person was a premier member and rented over six days and received a 30% discount\n";
+				string = string + cust.getName() + " was a premier member and rented over six days and received a 30% discount\n";
 				break;
-			case 'G':
-				string = string + "This person was a premier member and received a 10% discount\n";
+			case 'P':
+				string = string + cust.getName() + " was a premier member and received a 10% discount\n";
 				break;
 			case 'D':
-				string = string + "This person rented over six days and received a 20% discount\n";
+				string = string + cust.getName() + " rented over six days and received a 20% discount\n";
 				break;
 			case 'N':
-				string = string + "This person did not qualify for a discount\n";
+				string = string + cust.getName() + " did not qualify for a discount\n";
 		}
-		
-		string = string + "The following add ones were reserved:\n";
-		
-		for (AddOn add : addOn)
-		{
-			string = string + add + "\n";
+		if (!addOn.isEmpty()) {
+			string = string + "The following addons were reserved:\n";
+			for (AddOn add : addOn) {
+				string = string + add + "\n";
+			}
 		}
-		
 		return string;
 	}
 
 	// Method to calculate rental cost and set discount
-	public void setRentalCost(Customer cust, TimeShare timeShare) {
+	public void setRentalCost() {
 		NumberFormat nf = NumberFormat.getCurrencyInstance();
 		double rentdiscount = timeShare.getCostPerNight() * numDays;
 		char discounttype = ' ';
-
-		if (cust.isPremier()) {
-			if (numDays > 6) {
-				
+		
+		// N = none P = premier D = days B = both
+		// get 20% discount for rentals of a week or more
+		// get 10% more (30% total) if they are a premier member
+		if (numDays > 6) {
+			if (cust.isPremier()) {
+				// 30% discount
 				discounttype = 'B';
-				rentdiscount = 0.7;
-			} else {
-				discounttype = 'G';
-				rentdiscount = 0.9; // 10% total discount
+				rentdiscount = rentdiscount * 0.7;
+			}
+			else {
+				// 10% discount
+				discounttype = 'D';
+				rentdiscount = rentdiscount * 0.8; // 20% total discount
 			}
 		}
 		else {
-			if (numDays <= 6) {
-				discounttype = 'D';
-				rentdiscount = 0.8; // 20% total discount
-			} else {
-				discounttype = 'N';
-				rentdiscount = 1;   // 0% total discount
+			if (cust.isPremier()) {
+				discounttype = 'P';
+				rentdiscount = rentdiscount * 0.9; // 10% total discount
 			}
-		
+			else {
+				discounttype = 'N';
+				rentdiscount = rentdiscount * 1;   // 0% total discount
+			}
 		}
-		this.setRentAmt(timeShare.getCostPerNight() * numDays * rentdiscount);
+		this.setRentAmt(rentdiscount);
 		this.setDiscount(discounttype);
 	}
 	
 	// Method to adjust rental amount based on add-ons
-	public void costAddOns(ArrayList<AddOn> addOn) {
+	public void costAddOns() {
+		NumberFormat nf = NumberFormat.getCurrencyInstance();
 		double addonCost = 0.0;
 		for (AddOn addon : addOn) {
 			if (addon.isDuration()) {
@@ -105,8 +106,9 @@ public class TSReservation {
 				addonCost = addonCost + addon.getCost() * numDays;
 			}
 		}
-        System.out.println("The cost of the add ons is: $" + addonCost);
-        System.out.println("The total cost is: $" + (this.getRentAmt() + addonCost));
+		setRentAmt(this.getRentAmt() + addonCost);
+        System.out.println("The cost of the add ons is: " + nf.format(addonCost));
+        System.out.println("The total cost is: " + nf.format(this.getRentAmt()));
 	}
 
 	// Getters and setters for each field
@@ -133,4 +135,29 @@ public class TSReservation {
 	public void setDiscount(char discount) {
 		this.discount = discount;
 	}
+
+	public Customer getCust() {
+		return cust;
+	}
+
+	public void setCust(Customer cust) {
+		this.cust = cust;
+	}
+
+	public TimeShare getTimeShare() {
+		return timeShare;
+	}
+
+	public void setTimeShare(TimeShare timeShare) {
+		this.timeShare = timeShare;
+	}
+
+	public ArrayList<AddOn> getAddOn() {
+		return addOn;
+	}
+
+	public void setAddOn(ArrayList<AddOn> addOn) {
+		this.addOn = addOn;
+	}
+
 }
