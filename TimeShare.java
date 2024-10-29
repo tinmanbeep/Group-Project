@@ -20,7 +20,7 @@ public class TimeShare {
 	
 	public String toString() {
 		NumberFormat nf = NumberFormat.getCurrencyInstance();
-		return "A "+ numBedrooms + " bedroom glorius room located in " + location + 
+		return "A "+ numBedrooms + " bedroom glorious room located in " + location + 
 				" and rents for " + nf.format(costPerNight) + " per night";
 	}
 
@@ -48,5 +48,4 @@ public class TimeShare {
 		this.costPerNight = costPerNight;
 	}
 
-	
 }
